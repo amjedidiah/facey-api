@@ -35,7 +35,7 @@ db.select('*').from('users').then(data => {
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/', (req, res) => { res.send(db.users) })  //getting root request
+app.get('/', (req, res) => { res.send('it works') })  //getting root request
 
 app.post('/signin', (req, res) => {signin.handleSignin(req, res, db, bcrypt)})  //getting and responding to post request on /signin
 
