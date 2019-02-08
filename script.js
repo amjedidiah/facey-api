@@ -25,12 +25,6 @@ const app = express(),
 
 
 
-db.select('*').from('users').then(data => {
-  // console.log(data)
-})
-
-
-
 
 app.use(bodyParser.json())
 app.use(cors())
