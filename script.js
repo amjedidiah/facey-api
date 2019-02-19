@@ -31,7 +31,22 @@ app.get('/', (req, res) => { res.send('it works') })  //getting root request
 
 app.post('/signin', (req, res) => {signin.handleSignin(req, res, db, bcrypt)})  //getting and responding to post request on /signin
 
-app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})  //getting and responding to post request on /register
+app.post('/register', (req, res) => {
+
+  const {email} = req.body
+  //
+  db.select('email')
+    .from('login')
+    .where('email', '=', email)
+    .then(existing => {
+      if(existing.length === 0) {
+        register.handleRegister(req, res, db, bcrypt)
+      } else {
+        signin.handleSignin(req, res, db, bcrypt)
+      }
+    })
+
+})  //getting and responding to post request on /register
 
 app.get('/profile/:id', (req, res) => {profile.handleProfileGet(req, res, db)})
 
